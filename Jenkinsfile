@@ -21,7 +21,7 @@ pipeline {
             }
 	    post {
                 always {
-                    junit '**/target/surefire-reports/TEST-mypackage.CalculatorTest.xml'
+                    junit '**/target/surefire-reports/TEST-com.example.springboot.SpringbootApplicationTests.xml'
 		}
 
 	      }
