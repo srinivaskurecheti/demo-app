@@ -4,7 +4,10 @@ pipeline {
 
     tools {
         maven "maven"
-	docker "Docker"
+    }
+
+    tools {
+        docker "Docker"
     }
 
     stages {
