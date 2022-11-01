@@ -49,7 +49,7 @@ pipeline {
         }
 
 
-	stage('Sonarqube analysis') {
+	stage('Quality Gate analysis') {
             steps {
 
                 script{
