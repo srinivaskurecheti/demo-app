@@ -49,6 +49,18 @@ pipeline {
         }
 
 
+	stage('Sonarqube analysis') {
+            steps {
+
+                script{
+
+                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar'
+
+               }
+            }
+        }
+
+
     }
 }
 
