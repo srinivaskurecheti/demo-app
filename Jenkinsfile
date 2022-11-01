@@ -89,7 +89,7 @@ pipeline {
         }
 
 
-	stage('Quality Gate analysis') {
+	stage('Building Docker Image') {
             steps {
 
                 script{
