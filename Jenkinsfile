@@ -94,14 +94,14 @@ pipeline {
 
                 script{
 
-		 withCredentials([string(credentialsId: 'password', variable: 'Password')]) {
+		 
 
                  
-		 sh "docker login -u srinivaskurecheti -p ${Password}"
+		 sh "docker login -u srinivaskurecheti -p Soloman@1235"
                  sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
 		 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
 		 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
-		 }
+		 
 		 
 
                }
