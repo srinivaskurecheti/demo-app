@@ -15,6 +15,25 @@ pipeline {
             }
         }
 
+	stage('Unit Testing') {
+            steps {
+               sh 'mvn test'
+            }
+
+	    post {
+                always {
+                    junit '**/target/surefire-reports/TEST-mypackage.CalculatorTest.xml'
+		}
+	    }
+        }
+
+
+	 stage('Building') {
+            steps {
+               sh 'mvn clean package'
+            }
+        }
+
 
     }
 }
