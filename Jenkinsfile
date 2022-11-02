@@ -100,7 +100,7 @@ pipeline {
                 script{
 
 
-                 sudo dockerImage = docker.build registry
+                 dockerImage = docker.build registry
 
 
                }
