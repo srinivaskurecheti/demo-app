@@ -6,10 +6,6 @@ pipeline {
         maven "maven"
     }
 
-    tools {
-        docker "Docker"
-    }
-
     stages {
 
         stage('Git checkout') {
@@ -44,7 +40,7 @@ pipeline {
 
 	        script{
 
-               withSonarQubeEnv(credentialsId: 'sonar') {
+               withSonarQubeEnv(credentialsId: 'token') {
 	       sh 'mvn clean package sonar:sonar'
                     }
 
@@ -58,7 +54,7 @@ pipeline {
 
                 script{
 
-                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar'
+                 waitForQualityGate abortPipeline: false, credentialsId: 'token'
 
                }
             }
@@ -82,7 +78,7 @@ pipeline {
 		         ], 
 	         credentialsId: 'nexus', 
 		 groupId: 'com.example', 
-		 nexusUrl: '3.110.94.56:8081', 
+		 nexusUrl: '3.110.130.99:8081', 
 		 nexusVersion: 'nexus3', 
 		 protocol: 'http', 
 		 repository: nexusRepo, 
@@ -92,25 +88,6 @@ pipeline {
             }
         }
 
-
-	stage('Building Docker Image') {
-            steps {
-
-                script{
-
-		 
-
-                 
-		 
-                 sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
-		 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
-		 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
-		 
-		 
-
-               }
-            }
-        }
 
 
     }
