@@ -4,6 +4,7 @@ pipeline {
 
     tools {
         maven "maven"
+	docker "Docker"
     }
 
     stages {
@@ -83,6 +84,22 @@ pipeline {
 		 protocol: 'http', 
 		 repository: nexusRepo, 
 		 version: "${readPomVersion.version}"
+
+               }
+            }
+        }
+
+
+	stage('Building Docker Image') {
+            steps {
+
+                script{
+
+
+                 sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
+                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
+
 
                }
             }
