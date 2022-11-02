@@ -6,6 +6,11 @@ pipeline {
         maven "maven"
     }
 
+    environment {
+          dockerImage = ''
+	  registry = 'srinivaskurecheti/demo-app'
+    }
+
     stages {
 
         stage('Git checkout') {
@@ -95,9 +100,7 @@ pipeline {
                 script{
 
 
-                 sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
-                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
-                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
+                 dockerImage = docker.build registry
 
 
                }
