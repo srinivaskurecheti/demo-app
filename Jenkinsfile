@@ -9,7 +9,7 @@ pipeline {
     environment {
           dockerImage = ''
 	  registry = 'srinivaskurecheti/demo-app'
-	  registry-cred = 'registry_cred'
+	  registrycred = 'registry_cred'
     }
 
     stages {
@@ -110,7 +110,7 @@ pipeline {
             steps {
 
                 script{
-                 docker.withregistry( '',registry-cred ) {
+                 docker.withregistry( '',registrycred ) {
 		 dockerImage.push()
 		 }
 
