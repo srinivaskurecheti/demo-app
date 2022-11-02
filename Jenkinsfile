@@ -6,11 +6,6 @@ pipeline {
         maven "maven"
     }
 
-    environment {
-          dockerImage = ''
-	  registry = 'srinivaskurecheti/demo-app'
-	  registrycred ='registry_cred'
-    }
 
     stages {
 
@@ -103,6 +98,25 @@ pipeline {
                  sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
                  sh 'docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
                  sh 'docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
+
+               }
+            }
+        }
+
+
+	 stage('Push the Image') {
+            steps {
+
+                script{
+
+                   withCredentials([string(credentialsId: 'dockerhub', variable: 'Docker')]) {
+
+                    sh 'docker login -u srinivaskurecheti -p ${Docker}'
+		    sh 'docker image push srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
+		    sh 'docker image push  srinivaskurecheti/$JOB_NAME:latest'
+
+
+		 }
 
                }
             }
