@@ -99,24 +99,27 @@ pipeline {
             steps {
 
                 script{
-                 dockerImage = docker.build registry
 
-                }
+                 sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:v1.$BUILD_ID'
+                 sh 'sudo docker image tag $JOB_NAME:v1.$BUILD_ID srinivaskurecheti/$JOB_NAME:latest'
+
+               }
             }
         }
 
 
-	stage('pushing image to Docker Hub') {
-            steps {
+	#stage('pushing image to Docker Hub') {
+         #   steps {
 
-                script{
-                 docker.withRegistry( '', registrycred ) {
-		 dockerImage.push()
-		 }
+          #      script{
+           #      docker.withRegistry( '', registrycred ) {
+	#	 dockerImage.push()
+	#	 }
 
-                }
-            }
-        }
+         #       }
+          #  }
+       # }
 
 
 
