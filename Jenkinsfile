@@ -109,17 +109,6 @@ pipeline {
         }
 
 
-	#stage('pushing image to Docker Hub') {
-         #   steps {
-
-          #      script{
-           #      docker.withRegistry( '', registrycred ) {
-	#	 dockerImage.push()
-	#	 }
-
-         #       }
-          #  }
-       # }
 
 
 
