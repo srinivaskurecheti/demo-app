@@ -9,6 +9,7 @@ pipeline {
     environment {
           dockerImage = ''
 	  registry = 'srinivaskurecheti/demo-app'
+	  registry-cred = 'registry_cred'
     }
 
     stages {
@@ -98,12 +99,22 @@ pipeline {
             steps {
 
                 script{
-
-
                  dockerImage = docker.build registry
 
+                }
+            }
+        }
 
-               }
+
+	stage('pushing image to Docker Hub') {
+            steps {
+
+                script{
+                 docker.withregistry( '',registry-cred ) {
+		 dockerImage.push()
+		 }
+
+                }
             }
         }
 
